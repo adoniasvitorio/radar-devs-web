@@ -3,6 +3,7 @@ import React from 'react';
 import './global.css';
 import './App.css';
 import './Sidebar.css';
+import './Main.css';
 
 function App() {
   return (
@@ -35,7 +36,57 @@ function App() {
           <button type="submit">Salvar</button>
         </form>
       </aside>
-      <main></main>
+      <main>
+        <ul>
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
+              <div className="user-info">
+                <strong>Adonias Vitorio</strong>
+                <span>React JS, React Native, Node JS</span>
+              </div>
+            </header>
+            <p>Fullstack Developer, passionate about music and tech.</p>
+            <a href="https://github.com/adoniasvitorio">Github</a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
+              <div className="user-info">
+                <strong>Adonias Vitorio</strong>
+                <span>React JS, React Native, Node JS</span>
+              </div>
+            </header>
+            <p>Fullstack Developer, passionate about music and tech.</p>
+            <a href="https://github.com/adoniasvitorio">Github</a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
+              <div className="user-info">
+                <strong>Adonias Vitorio</strong>
+                <span>React JS, React Native, Node JS</span>
+              </div>
+            </header>
+            <p>Fullstack Developer, passionate about music and tech.</p>
+            <a href="https://github.com/adoniasvitorio">Github</a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
+              <div className="user-info">
+                <strong>Adonias Vitorio</strong>
+                <span>React JS, React Native, Node JS</span>
+              </div>
+            </header>
+            <p>Fullstack Developer, passionate about music and tech.</p>
+            <a href="https://github.com/adoniasvitorio">Github</a>
+          </li>
+        </ul>
+      </main>
     </div>
   );
 }
