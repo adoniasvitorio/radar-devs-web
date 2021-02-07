@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
+import api from './services/api';
+
 import './global.css';
 import './App.css';
 import './Sidebar.css';
 import './Main.css';
 
 function App() {
+
+  const [devs, setDevs] = useState([]);
 
   const [github_username, setGithubusername] = useState('');
   const [techs, setTechs] = useState('');
@@ -29,10 +33,27 @@ function App() {
   }, [])
 
 
+  useEffect(() => {
+    async function loadDevs() {
+      const response = await api.get('/devs');
+      setDevs(response.data);
+    }
+    loadDevs();
+  }, [])
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    
+    const response = await api.post('/devs', {
+      github_username,
+      techs,
+      latitude,
+      longitude
+    })
+    setGithubusername('');
+    setTechs('');
+
+    setDevs([...devs, response.data]);
   }
 
   return (
@@ -67,53 +88,19 @@ function App() {
       </aside>
       <main>
         <ul>
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
-              <div className="user-info">
-                <strong>Adonias Vitorio</strong>
-                <span>React JS, React Native, Node JS</span>
-              </div>
-            </header>
-            <p>Fullstack Developer, passionate about music and tech.</p>
-            <a href="https://github.com/adoniasvitorio">Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
-              <div className="user-info">
-                <strong>Adonias Vitorio</strong>
-                <span>React JS, React Native, Node JS</span>
-              </div>
-            </header>
-            <p>Fullstack Developer, passionate about music and tech.</p>
-            <a href="https://github.com/adoniasvitorio">Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
-              <div className="user-info">
-                <strong>Adonias Vitorio</strong>
-                <span>React JS, React Native, Node JS</span>
-              </div>
-            </header>
-            <p>Fullstack Developer, passionate about music and tech.</p>
-            <a href="https://github.com/adoniasvitorio">Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars.githubusercontent.com/u/46370687?v=4" alt="Image Profile" />
-              <div className="user-info">
-                <strong>Adonias Vitorio</strong>
-                <span>React JS, React Native, Node JS</span>
-              </div>
-            </header>
-            <p>Fullstack Developer, passionate about music and tech.</p>
-            <a href="https://github.com/adoniasvitorio">Github</a>
-          </li>
+          {devs.map(dev => (
+            <li key={dev._id} className="dev-item">
+              <header>
+                <img src={dev.avatar_url} alt={dev.name} />
+                <div className="user-info">
+                  <strong>{dev.name}</strong>
+                  <span>{dev.techs.join(', ')}</span>
+                </div>
+              </header>
+              <p>{dev.bio}</p>
+              <a href={`https://github.com/${dev.github_username}`}>Github</a>
+            </li>
+          ))}
         </ul>
       </main>
     </div>
