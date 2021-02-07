@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './global.css';
 import './App.css';
@@ -6,30 +6,59 @@ import './Sidebar.css';
 import './Main.css';
 
 function App() {
+
+  const [github_username, setGithubusername] = useState('');
+  const [techs, setTechs] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
+      },
+      (error) => {
+
+      },
+      {
+        timeout: 30000,
+      }
+    )
+  }, [])
+
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    
+  }
+
   return (
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="input-block">
             <label htmlFor="github_username">Usuario Github</label>
-            <input name="github_username" id="github_username" required />
+            <input name="github_username" id="github_username" value={github_username} required onChange={e => setGithubusername(e.target.value)} />
           </div>
 
           <div className="input-block">
             <label htmlFor="techs">Tecnologias</label>
-            <input name="techs" id="techs" required />
+            <input name="techs" id="techs" value={techs} required onChange={e => setTechs(e.target.value)} />
           </div>
 
           <div className="input-group">
             <div className="input-block">
               <label htmlFor="lat">Latitude</label>
-              <input name="lat" id="lat" required />
+              <input type="number" name="lat" id="lat" value={latitude} required onChange={e => setLatitude(e.target.value)} />
             </div>
 
             <div className="input-block">
               <label htmlFor="long">Longitude</label>
-              <input name="long" id="long" required />
+              <input type="number" name="long" id="long" value={longitude} required onChange={e => setLongitude(e.target.value)} />
             </div>
           </div>
 
